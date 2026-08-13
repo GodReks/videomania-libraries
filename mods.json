@@ -1,0 +1,17 @@
+[
+  {
+    "id": "videomania-libraries",
+    "name": "Videomania Libraries",
+    "author": "rudy",
+    "description": "Backdrops personnalisés et floutés pour les bibliothèques Jellyfin.",
+    "version": "0.2.0",
+    "jellyfin": "10.10+",
+    "tags": [
+      "ui",
+      "backdrop",
+      "videomania"
+    ],
+    "cssUrl": "http://192.168.1.69:8092/style.css",
+    "jsUrl": "http://192.168.1.69:8092/client.js"
+  }
+]
