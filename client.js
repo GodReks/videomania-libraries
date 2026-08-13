@@ -4,6 +4,94 @@
 
     function getLibraryId() {
         const hash = window.location.hash || "";
+        const queryIndex = hash.indexOf("?");
+
+        if (queryIndex === -1) return null;
+
+        const params = new URLSearchParams(
+            hash.substring(queryIndex + 1)
+        );
+
+        return (
+            params.get("topParentId") ||
+            params.get("parentId") ||
+            null
+        );
+    }
+
+    function ensureElements() {
+        let bg = document.getElementById(BG_ID);
+        let overlay = document.getElementById(OVERLAY_ID);
+
+        if (!bg) {
+            bg = document.createElement("div");
+            bg.id = BG_ID;
+            document.body.insertBefore(bg, document.body.firstChild);
+        }
+
+        if (!overlay) {
+            overlay = document.createElement("div");
+            overlay.id = OVERLAY_ID;
+            document.body.insertBefore(overlay, document.body.firstChild);
+        }
+
+        return { bg, overlay };
+    }
+
+    function hideBackground() {
+        document
+            .getElementById(BG_ID)
+            ?.classList.remove("active");
+
+        document
+            .getElementById(OVERLAY_ID)
+            ?.classList.remove("active");
+    }
+
+    function updateBackground() {
+        const libraryId = getLibraryId();
+
+        if (!libraryId || !window.ApiClient) {
+            hideBackground();
+            return;
+        }
+
+        const { bg, overlay } = ensureElements();
+
+        const url = window.ApiClient.getImageUrl(libraryId, {
+            type: "Backdrop",
+            index: 0,
+            maxWidth: 1920,
+            quality: 90
+        });
+
+        if (!url) {
+            hideBackground();
+            return;
+        }
+
+        bg.style.backgroundImage = `url("${url}")`;
+        bg.classList.add("active");
+        overlay.classList.add("active");
+    }
+
+    window.addEventListener("hashchange", () => {
+        setTimeout(updateBackground, 250);
+    });
+
+    window.addEventListener("popstate", () => {
+        setTimeout(updateBackground, 250);
+    });
+
+    setTimeout(updateBackground, 1000);
+
+    console.log("[Videomania] Libraries loaded");
+})();(() => {
+    const BG_ID = "videomania-library-bg";
+    const OVERLAY_ID = "videomania-library-overlay";
+
+    function getLibraryId() {
+        const hash = window.location.hash || "";
 
         const queryIndex = hash.indexOf("?");
         if (queryIndex === -1) return null;
