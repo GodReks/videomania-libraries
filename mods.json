@@ -4,7 +4,7 @@
     "name": "Videomania Libraries",
     "author": "GodReks",
     "description": "Backdrops personnalisés et floutés pour les bibliothèques Jellyfin.",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "jellyfin": "10.10+",
     "tags": ["ui", "backdrop", "videomania"],
     "cssUrl": "https://cdn.jsdelivr.net/gh/GodReks/videomania-libraries@main/style.css",
