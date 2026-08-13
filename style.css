@@ -1,4 +1,30 @@
-#videomania-library-bg.active {
+.backgroundContainer.videomania-active {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    filter: none !important;
+}
+
+/* Blur appliqué via pseudo-calque visuel natif */
+.backgroundContainer.videomania-active::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    backdrop-filter: blur(7px) saturate(1.2);
+    -webkit-backdrop-filter: blur(7px) saturate(1.2);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 5, 10, 0.05),
+            rgba(5, 5, 10, 0.24) 55%,
+            rgba(5, 5, 10, 0.48)
+        );
+
+    pointer-events: none;
+}#videomania-library-bg.active {
     opacity: 0.9;
 }
 
